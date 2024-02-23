@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 87.36 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Bronze-2);
+      }
+
+      .cls-2 {
+        fill: url(#Bronze-4);
+      }
+
+      .cls-3 {
+        fill: url(#Bronze-3);
+      }
+
+      .cls-4 {
+        fill: #716007;
+        font-family: GreatVibes-Regular, 'Great Vibes';
+        font-size: 88px;
+      }
+
+      .cls-5 {
+        fill: url(#Bronze-5);
+      }
+
+      .cls-6 {
+        fill: url(#Bronze);
+      }
+    </style>
+    <linearGradient id="Bronze" x1="-30.14" y1="64.57" x2="76.07" y2="-15.09" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#401617"/>
+      <stop offset=".08" stop-color="#6b4c2d"/>
+      <stop offset=".38" stop-color="#a58a55"/>
+      <stop offset=".56" stop-color="#e5d4b5"/>
+      <stop offset=".8" stop-color="#987a59"/>
+      <stop offset=".8" stop-color="#967857"/>
+      <stop offset=".96" stop-color="#814f2f"/>
+    </linearGradient>
+    <linearGradient id="Bronze-2" data-name="Bronze" x1="-17.36" y1="81.61" x2="88.85" y2="1.95" xlink:href="#Bronze"/>
+    <linearGradient id="Bronze-3" data-name="Bronze" x1="-8.16" y1="93.87" x2="98.05" y2="14.22" xlink:href="#Bronze"/>
+    <linearGradient id="Bronze-4" data-name="Bronze" x1="-16.47" y1="82.8" x2="89.74" y2="3.14" xlink:href="#Bronze"/>
+    <linearGradient id="Bronze-5" data-name="Bronze" x1="8.66" y1="116.31" x2="114.87" y2="36.65" xlink:href="#Bronze"/>
+  </defs>
+  <text class="cls-4" transform="translate(26.36 -33.46)"><tspan x="0" y="0">Itinerario</tspan></text>
+  <g id="church">
+    <path class="cls-6" d="M49.43,4.23h-3.85V1.27c0-.7-.57-1.27-1.27-1.27s-1.27,.57-1.27,1.27v2.97h-3.85c-.7,0-1.27,.57-1.27,1.27s.57,1.27,1.27,1.27h3.85v9.41c0,.7,.57,1.27,1.27,1.27s1.27-.57,1.27-1.27V6.77h3.85c.7,0,1.27-.57,1.27-1.27s-.57-1.27-1.27-1.27Z"/>
+    <path class="cls-1" d="M49.45,41.93h-11.54c-.7,0-1.27-.57-1.27-1.27v-6.78c0-3.88,3.16-7.04,7.04-7.04s7.04,3.16,7.04,7.04v6.78c0,.7-.57,1.27-1.27,1.27Zm-10.27-2.54h9v-5.51c0-2.48-2.02-4.5-4.5-4.5s-4.5,2.02-4.5,4.5v5.51Z"/>
+    <path class="cls-3" d="M76.76,39.64l-8.5-6.28L45.12,15.07c-.45-.36-1.09-.36-1.55-.02l-23.45,17.64-9.41,6.95c-.56,.42-.68,1.21-.27,1.77,.25,.34,.63,.51,1.02,.51,.26,0,.53-.08,.75-.25l3.85-2.84v34.9c0,.7,.57,1.27,1.27,1.27h14.8c.7,0,1.27-.57,1.27-1.27v-13.55c0-5.66,4.61-10.27,10.27-10.27s10.27,4.61,10.27,10.27v13.55c0,.7,.57,1.27,1.27,1.27h14.8c.7,0,1.27-.57,1.27-1.27V38.75l3.96,2.93c.23,.17,.49,.25,.75,.25,.39,0,.77-.18,1.02-.51,.42-.56,.3-1.36-.27-1.77Zm-8.01,32.83h-12.27v-12.28c0-7.06-5.75-12.81-12.81-12.81s-12.81,5.75-12.81,12.81v12.28h-12.26V37l25.71-19.33,21.27,16.81c.07,.08,.14,.16,.23,.23l.89,.66,2.05,1.62v35.48Z"/>
+    <path class="cls-2" d="M16.07,73.73v-1.27H2.54v-17.68h13.53v-2.54H1.27c-.7,0-1.27,.57-1.27,1.27v20.22c0,.7,.57,1.27,1.27,1.27H17.34c-.7,0-1.27-.57-1.27-1.27Z"/>
+    <path class="cls-5" d="M86.1,52.24h-14.8v2.54h13.53v17.68h-13.53v1.27c0,.7-.57,1.27-1.27,1.27h16.07c.7,0,1.27-.57,1.27-1.27v-20.22c0-.7-.57-1.27-1.27-1.27Z"/>
+  </g>
+</svg>
