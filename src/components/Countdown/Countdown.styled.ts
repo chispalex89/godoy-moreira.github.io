@@ -3,7 +3,7 @@ import { timerMargin } from '../../assets/img';
 import { JosefinSansParagraph, StyledTitle } from '../shared/shared.styled';
 
 export const CountdownWrapper = styled.div`
-  background: url(${timerMargin}) no-repeat;
+  background: url(${timerMargin}) no-repeat center center;
   width: 90%;
   height: 100px;
   display: flex;

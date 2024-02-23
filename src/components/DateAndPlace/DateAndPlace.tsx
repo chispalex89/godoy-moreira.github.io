@@ -38,7 +38,7 @@ import {
 
 const onClickHandler = (app: string) => {
   if (app === 'waze') {
-    window.open('https://waze.com/ul/h9fxejb3sd&navigate=yes');
+    window.open('https://waze.com/ul/h9fxejch27&navigate=yes');
   } else {
     window.open('https://maps.app.goo.gl/UxNe5NXuerKKp7cDA?g_st=ico');
   }
