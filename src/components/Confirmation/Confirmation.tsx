@@ -35,16 +35,10 @@ const Confirmation: FC<ConfirmationProps> = () => {
         <ConfirmationImage src={invitation} />
         <ConfirmationMessage>
           Nos encantaría verte en nuestra boda y crear juntos recuerdos
-          inolvidables. Por favor confirma tu asistencia para que podamos tener
-          todo listo para ti.
+          inolvidables. Queremos que disfrutes de esta celebración tanto como
+          nosotros, por eso hemos decidido no incluir a niños.
         </ConfirmationMessage>
-        <ConfirmationMessage>
-          <small>
-            Queremos que disfrutes de esta celebración tanto como nosotros, por
-            eso hemos decidido no incluir a niños.
-          </small>
-        </ConfirmationMessage>
-        <ConfirmationTitle>Confirma tu asistencia</ConfirmationTitle>
+        <ConfirmationTitle>¡Confirma tu asistencia!</ConfirmationTitle>
         <ConfirmationMessage>
           <small>
             Recuerda que la confirmación de asistencia es importante para que

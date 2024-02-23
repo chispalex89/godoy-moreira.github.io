@@ -36,6 +36,14 @@ import {
   elPulteMap,
 } from '../../assets/img';
 
+const onClickHandler = (app: string) => {
+  if (app === 'waze') {
+    window.open('https://waze.com/ul/h9fxejb3sd&navigate=yes');
+  } else {
+    window.open('https://maps.app.goo.gl/UxNe5NXuerKKp7cDA?g_st=ico');
+  }
+};
+
 interface DateAndPlaceProps {}
 
 const DateAndPlace: FC<DateAndPlaceProps> = () => (
@@ -70,8 +78,13 @@ const DateAndPlace: FC<DateAndPlaceProps> = () => (
       <DateAndPlaceMapRowColumn>
         <DateAndPlaceSubtitle>¿Cómo llegar?</DateAndPlaceSubtitle>
         <DateAndPlaceHowToGetThereContainer>
-          <DateAndPlaceMapIcon src={waze} />
-          <DateAndPlaceMapIcon src={maps} />
+          <DateAndPlaceMapIcon
+            onClick={() => onClickHandler('waze')}
+            src={waze}
+          />
+          <DateAndPlaceMapIcon
+            onClick={() => onClickHandler('maps')}
+          src={maps} />
         </DateAndPlaceHowToGetThereContainer>
       </DateAndPlaceMapRowColumn>
       <DateAndPlaceMapColumn>

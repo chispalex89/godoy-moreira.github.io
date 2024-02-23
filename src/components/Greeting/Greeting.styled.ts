@@ -2,20 +2,26 @@ import styled from 'styled-components';
 import { JosefinSlabParagraph, LeftImage, RightImage } from '../shared/shared.styled';
 
 export const GreetingWrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  @media (min-width: 1025px) {
+    margin-top: 40px;
+  }
 `;
 
 export const GreetingImg = styled.img`
+  margin-top: 0;
   width: 350px;
   object-fit: cover;
   z-index: 5;
 
   @media (min-width: 1025px) {
+    margin-top: 40px;
     width: 500px;
   }
 `;

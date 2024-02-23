@@ -69,18 +69,18 @@ export const ConfirmationBorderTopRightImage = styled(RightImage)`
 export const ConfirmationBorderBottomLeftImage = styled(LeftImage)`
   height: unset;
   width: 100px;
-  margin-top: 600px;
+  margin-top: 540px;
 
   @media (min-width: 1025px) {
     width: 190px;
-    margin-top: 750px;
+    margin-top: 680px;
   }
 `;
 
 export const ConfirmationBorderBottomRightImage = styled(RightImage)`
   height: unset;
   width: 80px;
-  margin-top: 830px;
+  margin-top: 770px;
 
   @media (min-width: 1025px) {
     width: 190px;
