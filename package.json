@@ -2,8 +2,8 @@
   "name": "wedding_invitation",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://chispalex89.github.io/wedding-godoy-moreira",
   "dependencies": {
+    "firebase": "^10.8.0",
     "react": "^18.2.0",
     "react-countdown": "^2.3.5",
     "react-dom": "^18.2.0",

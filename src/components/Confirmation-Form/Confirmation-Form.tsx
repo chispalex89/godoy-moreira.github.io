@@ -1,11 +1,10 @@
-import React, { FC, FormEvent, useEffect, useState } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 import {
   ConfirmationButtonContainer,
   ConfirmationCancelButton,
   ConfirmationCheckbox,
   ConfirmationFormCheckboxContainer,
   ConfirmationFormCheckboxLabel,
-  ConfirmationFormInput,
   ConfirmationFormInputContainer,
   ConfirmationFormLabel,
   ConfirmationFormNamesContainer,
@@ -16,6 +15,9 @@ import {
 } from './Confirmation-Form.styled';
 import { getArrayFromNumber } from '../../helpers';
 import { Guest } from '../../interfaces';
+
+import { firestore } from '../../firebase';
+import { addDoc, collection } from 'firebase/firestore';
 
 interface ConfirmationFormState {
   name: string;
@@ -59,9 +61,20 @@ const ConfirmationForm: FC<ConfirmationFormProps> = ({onCancel}) => {
 
   const handleSubmit = (e: FormEvent) => {
     setSubmitPressed(true);
-    setTimeout(() => {
+    setTimeout(async () => {
       setSubmitPressed(false);
-      window.open('/confirmation', '_blank');
+      const data = {
+        name: guest.invitationName,
+        numberOfPeople: numberOfPeople,
+        guestsNames: state.guestsNames,
+      };
+
+      try {
+        const docRef = await addDoc(collection(firestore, 'guests'), data);
+        console.log('Document written with ID: ', docRef.id);
+      } catch (e) {
+        console.error('Error adding document: ', e);
+      }
     }, 100);
     e.preventDefault();
     console.log(state);
