@@ -3,14 +3,27 @@ import { timerMargin } from '../../assets/img';
 import { JosefinSansParagraph, StyledTitle } from '../shared/shared.styled';
 
 export const CountdownWrapper = styled.div`
-  background: url(${timerMargin}) no-repeat center center;
-  width: 90%;
+  background: url(${timerMargin});
+  background-size: cover;
+  width: 96%;
   height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
   margin-top: 20px;
+
+  @media (min-width: 412px) {
+    width: 90%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  @media (min-width: 768px) {
+    background-size: cover;
+    background-position: unset;
+  }
 
   @media (min-width: 1025px) {
     width: 80%;

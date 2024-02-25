@@ -111,7 +111,7 @@ export const DateAndPlaceColumn = styled.div`
 
 export const DateAndPlaceMapColumn = styled(DateAndPlaceColumn)`
   width: 150px;
-  display: none;
+  margin: 10px 0;
 
   @media (min-width: 1025px) {
     display: flex;
@@ -163,7 +163,11 @@ export const DateAndPlaceMapIcon = styled.img`
 `;
 
 export const DateAndPlaceMap = styled.img`
-  width: 400px;
+  width: 150px;
+
+  @media (min-width: 1025px) {
+    width: 400px;
+  }
 `;
 
 export const ClickToEnlargeOverlay = styled.div`
@@ -171,12 +175,23 @@ export const ClickToEnlargeOverlay = styled.div`
   top: 90%;
   left: 0;
   width: 100%;
-  height: 10%;
+  height: 20%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5); // semi-transparent black
   color: white; // white text
-  font-size: 16px; // adjust as needed
+  font-size: 9.5px; // adjust as needed
   mouse-events: none; // allow clicks to go through
+
+  span {
+    text-align: center;
+  }
+
+  @media (min-width: 1025px) {
+    height: 10%;
+    align-items: center;
+    top: 90%;
+    font-size: 16px;
+  }
 `;

@@ -14,19 +14,25 @@ import {
   ConfirmationWrapper,
 } from './Confirmation.styled';
 import { border7Left, border7Right, border8Left, border8Right, invitation, logo, wedPikachus } from '../../assets/img';
+import ConfirmationForm from '../Confirmation-Form/Confirmation-Form';
 
 interface ConfirmationProps {}
 
 const Confirmation: FC<ConfirmationProps> = () => {
   const [pressed, setPressed] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const handleClick = () => {
     setPressed(true);
     setTimeout(() => {
       setPressed(false);
-      window.open('/confirmation', '_blank');
+      setShowForm(true);
     }, 100);
   };
+
+  const handleCancel = () => {
+    setShowForm(false);
+  }
   return (
     <ConfirmationWrapper>
       <ConfirmationContainer>
@@ -48,16 +54,16 @@ const Confirmation: FC<ConfirmationProps> = () => {
             tu lugar.
           </small>
         </ConfirmationMessage>
-        <ConfirmationButton onClick={handleClick} pressed={pressed}>
+        {!showForm && <ConfirmationButton onClick={handleClick} pressed={pressed}>
           Confirma aquí
-        </ConfirmationButton>
+        </ConfirmationButton>}
+        {showForm && <ConfirmationForm onCancel={handleCancel} />}
         <ConfirmationPikachuImage src={wedPikachus} />
         <ConfirmationMessage>
           ¡Gracias por formar parte de este día tan especial!
         </ConfirmationMessage>
         <ConfirmationLogo src={logo} />
         <ConfirmationBorderBottomLeftImage src={border8Left} />
-        {/* <ConfirmationBorderBottomRightImage src={border8Right} /> */}
         <ConfirmationBorderBottomRightImage src={border8Right} />
       </ConfirmationContainer>
     </ConfirmationWrapper>

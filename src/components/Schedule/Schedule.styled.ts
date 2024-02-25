@@ -58,7 +58,7 @@ export const ScheduleThreeColumns = styled.div`
 
 export const ScheduleMiddleColumn = styled.div`
   height: 330px;
-  width: 55%;
+  width: 160px;
   background: url(${timeline}) no-repeat;
   background-size: contain;
 `;
