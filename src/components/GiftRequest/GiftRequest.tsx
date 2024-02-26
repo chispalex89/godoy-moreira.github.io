@@ -65,7 +65,7 @@ const GiftRequest: FC<GiftRequestProps> = () => (
           </GiftTableAccountNumber>
         </GiftDataCell>
         <GiftDataCell>
-          <GiftTableAccountNumber style={{margin: 0}}>
+          <GiftTableAccountNumber style={{ margin: 0 }}>
             Cuenta Monetaria:
             <br />
             185-001343-3
@@ -76,7 +76,7 @@ const GiftRequest: FC<GiftRequestProps> = () => (
           <GiftTableAccountNumber>
             Cuenta Monetaria:
             <br />
-            900000000
+            965343486
           </GiftTableAccountNumber>
         </GiftDataCell>
       </GiftTableRow>
