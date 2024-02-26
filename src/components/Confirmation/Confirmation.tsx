@@ -1,4 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { useSearchParams } from 'react-router-dom';
+
 import {
   ConfirmationBorderBottomLeftImage,
   ConfirmationBorderBottomRightImage,
@@ -13,8 +16,12 @@ import {
   ConfirmationTitle,
   ConfirmationWrapper,
 } from './Confirmation.styled';
+import { firestore } from '../../firebase';
+
+
 import { border7Left, border7Right, border8Left, border8Right, invitation, logo, wedPikachus } from '../../assets/img';
 import ConfirmationForm from '../Confirmation-Form/Confirmation-Form';
+import { Guest } from '../../interfaces';
 
 interface ConfirmationProps {}
 
@@ -22,6 +29,31 @@ const Confirmation: FC<ConfirmationProps> = () => {
   const [pressed, setPressed] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [searchParams] = useSearchParams();
+  const invitationId = searchParams.get('invitationId');
+  const [guest, setGuest] = useState<Guest | null>(null);
+
+  useEffect(() => {
+    if (invitationId) {
+      const fetchGuest = async () => {
+        const invitation = await getDoc(
+          doc(firestore, 'invitations', invitationId)
+        );
+        // Here you can fetch the guest data from the server
+        if (invitation.exists()) {
+          const data = invitation.data();
+          setGuest({
+            id: invitation.id,
+            name: data.name,
+            invitedGuests: Number(data.invitedGuests),
+            invitedGuestsNames: data.invitedGuestsNames,
+          } as Guest);
+        }
+      };
+
+      fetchGuest();
+    }
+  }, [invitationId]);
 
   const handleClick = () => {
     setPressed(true);
@@ -60,6 +92,11 @@ const Confirmation: FC<ConfirmationProps> = () => {
             no podremos asegurar tu lugar.
           </small>
         </ConfirmationMessage>
+        {!showForm && !showThankYou && guest?.invitedGuests && (
+          <ConfirmationMessage>
+            <small>Invitados: {guest?.invitedGuests}</small>
+          </ConfirmationMessage>
+        )}
         {!showForm && !showThankYou && (
           <ConfirmationButton onClick={handleClick} pressed={pressed}>
             Confirma aquí
@@ -74,7 +111,9 @@ const Confirmation: FC<ConfirmationProps> = () => {
         {showThankYou && (
           <ConfirmationTitle>
             <small>
-              ¡Gracias por confirmar tu asistencia!<br/>Nos vemos el 6 de abril.
+              ¡Gracias por confirmar tu asistencia!
+              <br />
+              Nos vemos el 6 de abril.
             </small>
           </ConfirmationTitle>
         )}
