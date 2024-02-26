@@ -4,7 +4,7 @@ export const Image = styled.img`
   position: absolute;
   height: 300px;
 
-  @media (min-width: 1025px) {
+  @media (min-width: 768px) {
     height: 400px;
   }
 `
@@ -12,7 +12,7 @@ export const Image = styled.img`
 export const LeftImage = styled(Image)`
   left: 0;
 
-  @media (min-width: 1025px) {
+  @media (min-width: 768px) {
     left: 25%;
   }
 `;
@@ -20,7 +20,7 @@ export const LeftImage = styled(Image)`
 export const RightImage = styled(Image)`
   right: 0;
 
-  @media (min-width: 1025px) {
+  @media (min-width: 768px) {
     right: 25%;
   }
 `;
@@ -59,7 +59,7 @@ export const StyledTitle = styled(GreatVibesParagraph)`
   width: 100%;
   margin-bottom: 0px;
 
-  @media (min-width: 1025px) {
+  @media (min-width: 768px) {
     font-size: 4rem;
     margin-top: 40px;
     margin-bottom: 10px;

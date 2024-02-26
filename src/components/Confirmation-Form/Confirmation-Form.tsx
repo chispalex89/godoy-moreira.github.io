@@ -1,4 +1,7 @@
-import React, { FC, FormEvent, useState } from 'react';
+import React, { FC, FormEvent, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import {
   ConfirmationButtonContainer,
   ConfirmationCancelButton,
@@ -17,68 +20,82 @@ import { getArrayFromNumber } from '../../helpers';
 import { Guest } from '../../interfaces';
 
 import { firestore } from '../../firebase';
-import { addDoc, collection } from 'firebase/firestore';
-
-interface ConfirmationFormState {
-  name: string;
-  numberOfPeople: number;
-  guestsNames: string[];
-}
 
 interface ConfirmationFormProps {
   onCancel: () => void;
+  onSubmit: () => void;
 }
 
-const ConfirmationForm: FC<ConfirmationFormProps> = ({onCancel}) => {
-  const [state, setState] = useState<ConfirmationFormState>({
-    name: '',
-    numberOfPeople: 0,
-    guestsNames: [],
-  });
+const ConfirmationForm: FC<ConfirmationFormProps> = ({
+  onCancel,
+  onSubmit,
+}) => {
 
+  const [numberOfPeople, setNumberOfPeople] = useState(0);
+  const [guestsNames, setGuestsNames] = useState<string[]>([]);
   const [submitPressed, setSubmitPressed] = useState(false);
   const [cancelPressed, setCancelPressed] = useState(false);
+  const [guest, setGuest] = useState<Guest | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [searchParams] = useSearchParams();
+  const invitationId = searchParams.get('invitationId');
 
-  const { numberOfPeople } = state;
-  const guest: Guest = {
-    invitationId: '1',
-    invitationName: 'Juan Pérez y Familia',
-    invitedGuests: 5,
-    invitedGuestsNames: ['Juan', 'Pedro', 'Maria', 'Jose', 'Carlos'],
-  };
+  useEffect(() => {
+    if (invitationId) {
+      const fetchGuest = async () => {
+        const invitation = await getDoc(
+          doc(firestore, 'invitations', invitationId)
+        );
+        // Here you can fetch the guest data from the server
+        if (invitation.exists()) {
+          const data = invitation.data();
+          setGuest({
+            id: invitation.id,
+            name: data.name,
+            invitedGuests: Number(data.invitedGuests),
+            invitedGuestsNames: data.invitedGuestsNames,
+          } as Guest);
+        }
+      };
+
+      fetchGuest();
+    }
+  }, [invitationId]);
 
   const handleOnChangeSelectedOption = (e: any) => {
     if (numberOfPeople > parseInt(e.target.value)) {
-      setState({
-        ...state,
-        numberOfPeople: parseInt(e.target.value),
-        guestsNames: [],
-      });
+      setNumberOfPeople(parseInt(e.target.value));
+      setGuestsNames([]);
     } else {
-      setState({ ...state, numberOfPeople: parseInt(e.target.value) });
+      setNumberOfPeople(parseInt(e.target.value));
     }
   };
 
   const handleSubmit = (e: FormEvent) => {
     setSubmitPressed(true);
+    setIsSaving(true);
     setTimeout(async () => {
       setSubmitPressed(false);
       const data = {
-        name: guest.invitationName,
+        invitationId: guest?.id,
+        name: guest?.name,
         numberOfPeople: numberOfPeople,
-        guestsNames: state.guestsNames,
+        guestsNames: numberOfPeople !== guestsNames.length ? guest?.invitedGuestsNames : guestsNames,
       };
 
       try {
-        const docRef = await addDoc(collection(firestore, 'guests'), data);
-        console.log('Document written with ID: ', docRef.id);
+        await setDoc(
+          doc(firestore, 'confirmations', invitationId as string),
+          data
+        );
+        onSubmit();
       } catch (e) {
         console.error('Error adding document: ', e);
+      } finally {
+        setIsSaving(false);
       }
     }, 100);
     e.preventDefault();
-    console.log(state);
-    // Here you can handle the form submission. For example, send the data to a server.
   };
 
   const handleCancel = () => {
@@ -90,89 +107,96 @@ const ConfirmationForm: FC<ConfirmationFormProps> = ({onCancel}) => {
   };
 
   return (
-    <ConfirmationFormWrapper>
-      <ConfirmationFormTitle>{guest.invitationName}</ConfirmationFormTitle>
-      <ConfirmationFormInputContainer>
-        <ConfirmationFormLabel htmlFor="guests">
-          Tu invitación es para <b>{guest.invitedGuests}</b> personas.
-          <br />
-          ¿Cuántos invitados asistirán?
-        </ConfirmationFormLabel>
-        <ConfirmationFormSelect
-          id="guests"
-          name="numberOfPeople"
-          value={numberOfPeople}
-          onChange={handleOnChangeSelectedOption}
-        >
-          <option value={0} selected>
-            0
-          </option>
-          {getArrayFromNumber(guest.invitedGuests).map((i) => (
-            <option key={i + 1} value={i + 1}>
-              {i + 1}
-            </option>
-          ))}
-        </ConfirmationFormSelect>
-      </ConfirmationFormInputContainer>
-      {numberOfPeople > 0 && numberOfPeople < guest.invitedGuests && (
+    guest && (
+      <ConfirmationFormWrapper>
+        <ConfirmationFormTitle>{guest.name}</ConfirmationFormTitle>
         <ConfirmationFormInputContainer>
-          <ConfirmationFormLabel htmlFor="guestsNames">
-            Por favor selecciona los nombres de los invitados que asistirán
+          <ConfirmationFormLabel htmlFor="guests">
+            Tu invitación es para <b>{guest.invitedGuests}</b>{' '}
+            {guest.invitedGuests > 1 ? 'personas' : 'persona'}.
+            <br />
+            {guest.invitedGuests > 1 &&
+              numberOfPeople < guest.invitedGuests && (
+                <small>
+                  ({guest.invitedGuestsNames.join(', ')})
+                  <br />
+                </small>
+              )}
+            ¿Cuántos invitados asistirán?
           </ConfirmationFormLabel>
-          <ConfirmationFormNamesContainer>
-            {guest.invitedGuestsNames.map((invitedGuestName, index) => (
-              <ConfirmationFormCheckboxContainer>
-                <ConfirmationFormCheckboxLabel
-                  key={`label-${index}`}
-                  htmlFor={`checkbox-${index}`}
-                >
-                  <ConfirmationCheckbox
-                    key={`checkbox-${index}`}
-                    name="invitedGuests"
-                    checked={state.guestsNames.includes(invitedGuestName)}
-                    value={invitedGuestName}
-                    disabled={
-                      state.guestsNames.length === numberOfPeople &&
-                      !state.guestsNames.includes(invitedGuestName)
-                    }
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setState({
-                          ...state,
-                          guestsNames: [...state.guestsNames, invitedGuestName],
-                        });
-                      } else {
-                        setState({
-                          ...state,
-                          guestsNames: state.guestsNames.filter(
-                            (guestName) => guestName !== invitedGuestName
-                          ),
-                        });
-                      }
-                    }}
-                  />
-                  <span>{invitedGuestName}</span>
-                </ConfirmationFormCheckboxLabel>
-              </ConfirmationFormCheckboxContainer>
+          <ConfirmationFormSelect
+            id="guests"
+            name="numberOfPeople"
+            value={numberOfPeople}
+            onChange={handleOnChangeSelectedOption}
+            defaultValue={0}
+          >
+            <option value={0}>0</option>
+            {getArrayFromNumber(guest.invitedGuests).map((i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1}
+              </option>
             ))}
-          </ConfirmationFormNamesContainer>
+          </ConfirmationFormSelect>
         </ConfirmationFormInputContainer>
-      )}
-      <ConfirmationButtonContainer>
-        <ConfirmationFormSubmitButton
-          onClick={handleSubmit}
-          pressed={submitPressed}
-        >
-          Confirmar
-        </ConfirmationFormSubmitButton>
-        <ConfirmationCancelButton
-          onClick={handleCancel}
-          pressed={cancelPressed}
-        >
-          Cancelar
-        </ConfirmationCancelButton>
-      </ConfirmationButtonContainer>
-    </ConfirmationFormWrapper>
+        {numberOfPeople > 0 && numberOfPeople < guest.invitedGuests && (
+          <ConfirmationFormInputContainer>
+            <ConfirmationFormLabel htmlFor="guestsNames">
+              Por favor selecciona los nombres de los invitados que asistirán
+            </ConfirmationFormLabel>
+            <ConfirmationFormNamesContainer>
+              {guest.invitedGuestsNames.map((invitedGuestName, index) => (
+                <ConfirmationFormCheckboxContainer>
+                  <ConfirmationFormCheckboxLabel
+                    key={`label-${index}`}
+                    htmlFor={`checkbox-${index}`}
+                  >
+                    <ConfirmationCheckbox
+                      key={`checkbox-${index}`}
+                      name="invitedGuests"
+                      checked={guestsNames.includes(invitedGuestName)}
+                      value={invitedGuestName}
+                      disabled={
+                        guestsNames.length === numberOfPeople &&
+                        !guestsNames.includes(invitedGuestName)
+                      }
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setGuestsNames([...guestsNames, invitedGuestName]);
+                        } else {
+                          setGuestsNames(
+                            guestsNames.filter(
+                              (guestName) => guestName !== invitedGuestName
+                            )
+                          );
+                        }
+                      }}
+                    />
+                    <span>{invitedGuestName}</span>
+                  </ConfirmationFormCheckboxLabel>
+                </ConfirmationFormCheckboxContainer>
+              ))}
+            </ConfirmationFormNamesContainer>
+          </ConfirmationFormInputContainer>
+        )}
+        <ConfirmationButtonContainer>
+          <ConfirmationFormSubmitButton
+            onClick={handleSubmit}
+            pressed={submitPressed}
+            disabled={isSaving || (numberOfPeople > 0 && guestsNames.length !== numberOfPeople && numberOfPeople < guest.invitedGuests)}
+            loading={isSaving}
+          >
+            Confirmar
+          </ConfirmationFormSubmitButton>
+          <ConfirmationCancelButton
+            onClick={handleCancel}
+            pressed={cancelPressed}
+          >
+            Cancelar
+          </ConfirmationCancelButton>
+        </ConfirmationButtonContainer>
+      </ConfirmationFormWrapper>
+    )
   );
 };
 

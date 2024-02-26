@@ -21,6 +21,7 @@ interface ConfirmationProps {}
 const Confirmation: FC<ConfirmationProps> = () => {
   const [pressed, setPressed] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
 
   const handleClick = () => {
     setPressed(true);
@@ -32,6 +33,11 @@ const Confirmation: FC<ConfirmationProps> = () => {
 
   const handleCancel = () => {
     setShowForm(false);
+  }
+
+  const handleFormSubmit = () => {
+    setShowForm(false);
+    setShowThankYou(true);
   }
   return (
     <ConfirmationWrapper>
@@ -50,14 +56,28 @@ const Confirmation: FC<ConfirmationProps> = () => {
             Recuerda que la confirmación de asistencia es importante para que
             podamos planificar con anticipación y así garantizar que todo salga
             a la perfección, pues cada lugar tiene un costo monetario.
-            Lastimosamente, si no confirmas tu asistencia, no podremos asegurar
-            tu lugar.
+            Lastimosamente, si no confirmas tu asistencia antes del 10 de marzo,
+            no podremos asegurar tu lugar.
           </small>
         </ConfirmationMessage>
-        {!showForm && <ConfirmationButton onClick={handleClick} pressed={pressed}>
-          Confirma aquí
-        </ConfirmationButton>}
-        {showForm && <ConfirmationForm onCancel={handleCancel} />}
+        {!showForm && !showThankYou && (
+          <ConfirmationButton onClick={handleClick} pressed={pressed}>
+            Confirma aquí
+          </ConfirmationButton>
+        )}
+        {showForm && (
+          <ConfirmationForm
+            onCancel={handleCancel}
+            onSubmit={handleFormSubmit}
+          />
+        )}
+        {showThankYou && (
+          <ConfirmationTitle>
+            <small>
+              ¡Gracias por confirmar tu asistencia!<br/>Nos vemos el 6 de abril.
+            </small>
+          </ConfirmationTitle>
+        )}
         <ConfirmationPikachuImage src={wedPikachus} />
         <ConfirmationMessage>
           ¡Gracias por formar parte de este día tan especial!

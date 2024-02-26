@@ -90,6 +90,8 @@ export const DateAndPlaceColumnsContainer = styled(ColumnsContainer)`
 
 export const DateAndPlaceMapContainer = styled(DateAndPlaceColumnsContainer)`
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   @media (min-width: 1025px) {
     flex-direction: row;

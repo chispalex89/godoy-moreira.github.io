@@ -82,7 +82,7 @@ export const GreetingColumn = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 53%;
 `;
 
 export const GreetingNameText = styled(JosefinSlabParagraph)`
@@ -93,7 +93,7 @@ export const GreetingNameText = styled(JosefinSlabParagraph)`
 
   @media (min-width: 1025px) {
     font-size: 1.25rem;
-    width: 350px;
+    width: 305px;
     height: 25px;
   }
 `;

@@ -149,7 +149,7 @@ export const ConfirmationButton = styled.button<ButtonProps>`
   transition: box-shadow 0.3s ease;
   user-select: none; /* Prevent text selection */
 
-  ${(props: any) =>
+  ${(props: ButtonProps) =>
     props.pressed &&
     css`
       animation: ${pressAnimation} 0.1s linear;

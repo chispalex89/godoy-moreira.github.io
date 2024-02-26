@@ -1,6 +1,6 @@
 export interface Guest {
-  invitationId: string;
-  invitationName: string;
+  id: string;
+  name: string;
   invitedGuests: number;
   invitedGuestsNames: string[];
 }

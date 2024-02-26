@@ -15,6 +15,7 @@ import {
   ScheduleWrapper,
   ScheduleRightTextContainer,
   ScheduleRightText,
+  ScheduleRightColumn,
 } from './Schedule.styled';
 import {
   border4Left,
@@ -60,7 +61,7 @@ const Schedule: FC<ScheduleProps> = () => (
         </ScheduleRowsContainer>
       </ScheduleThreeColumns>
       <ScheduleMiddleColumn />
-      <ScheduleThreeColumns>
+      <ScheduleRightColumn>
         <ScheduleRightRowsContainer>
           <ScheduleRow>
             <ScheduleImage src={toast} />
@@ -77,7 +78,7 @@ const Schedule: FC<ScheduleProps> = () => (
             </ScheduleRightTextContainer>
           </ScheduleRow>
         </ScheduleRightRowsContainer>
-      </ScheduleThreeColumns>
+      </ScheduleRightColumn>
     </ScheduleThreeColumnsContainer>
   </ScheduleWrapper>
 );

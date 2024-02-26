@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import {
   DateAndPlaceBorderLeftImage,
   DateAndPlaceBorderRightImage,
@@ -15,12 +15,8 @@ import {
   DateAndPlaceMapIcon,
   DateAndPlaceMapContainer,
   DateAndPlaceMapRowColumn,
-  DateAndPlaceMapColumn,
-  DateAndPlaceMap,
-  ClickToEnlargeOverlay,
 } from './DateAndPlace.styled';
 import { DateAndPlaceImage } from './DateAndPlace.styled';
-import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
 import {
@@ -33,7 +29,6 @@ import {
   toast,
   waze,
   maps,
-  elPulteMap,
 } from '../../assets/img';
 
 const onClickHandler = (app: string) => {
@@ -87,14 +82,6 @@ const DateAndPlace: FC<DateAndPlaceProps> = () => (
           src={maps} />
         </DateAndPlaceHowToGetThereContainer>
       </DateAndPlaceMapRowColumn>
-      <DateAndPlaceMapColumn>
-        <Zoom>
-          <DateAndPlaceMap src={elPulteMap} />
-          <ClickToEnlargeOverlay>
-            <span>Haz clic en la imagen para agrandar</span>
-          </ClickToEnlargeOverlay>
-        </Zoom>
-      </DateAndPlaceMapColumn>
     </DateAndPlaceMapContainer>
   </DateAndPlaceWrapper>
 );

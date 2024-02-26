@@ -49,7 +49,7 @@ export const ScheduleThreeColumnsContainer = styled.div`
 `;
 
 export const ScheduleThreeColumns = styled.div`
-  width: 100%;
+  width: 45%;
   height: 330px;
   display: flex;
   flex-direction: row;
@@ -58,9 +58,24 @@ export const ScheduleThreeColumns = styled.div`
 
 export const ScheduleMiddleColumn = styled.div`
   height: 330px;
-  width: 160px;
+  width: 70px;
   background: url(${timeline}) no-repeat;
   background-size: contain;
+  background-position: center;
+
+  @media (min-width: 1025px) {
+    background-size: cover;
+    background-position: unset;
+  }
+
+  @media (min-width: 2560px) {
+    background-size: contain;
+    background-position: center;
+  }
+`;
+
+export const ScheduleRightColumn = styled(ScheduleThreeColumns)`
+  justify-content: flex-start;
 `;
 
 export const ScheduleRowsContainer = styled.div`

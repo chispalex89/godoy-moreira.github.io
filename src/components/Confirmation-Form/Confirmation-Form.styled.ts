@@ -13,8 +13,25 @@ const pressAnimation = keyframes`
   }
 `;
 
+// Define a spinner animation
+const spinner = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+// Define a Spinner styled component
+const Spinner = styled.div`
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  animation: ${spinner} 2s linear infinite;
+`;
+
 interface ButtonProps {
   pressed: boolean;
+  loading?: boolean;
 }
 
 export const ConfirmationFormWrapper = styled.div`
@@ -176,11 +193,31 @@ export const ConfirmationFormSubmitButton = styled.button<ButtonProps>`
   user-select: none; /* Prevent text selection */
   width: 150px;
 
-  ${(props: any) =>
+  ${(props: ButtonProps) =>
     props.pressed &&
     css`
       animation: ${pressAnimation} 0.1s linear;
       box-shadow: 0px 1px 0px #ccc inset;
+    `}
+
+  ${(props: ButtonProps) =>
+    props.loading &&
+    css`
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid #3498db;
+        animation: ${spinner} 1s linear infinite;
+      }
     `}
 
   @media (min-width: 1025px) {
