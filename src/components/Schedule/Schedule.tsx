@@ -46,7 +46,7 @@ const Schedule: FC<ScheduleProps> = () => (
           </ScheduleRow>
           <ScheduleRow>
             <ScheduleTextContainer>
-              <ScheduleText>16:00</ScheduleText>
+              <ScheduleText>16:30</ScheduleText>
               <ScheduleText>Recepción</ScheduleText>
             </ScheduleTextContainer>
             <ScheduleImage src={music} />
